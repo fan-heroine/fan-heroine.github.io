@@ -10,8 +10,6 @@
 $(document).ready(function () {
 
 
-    var call_count = 0;
-
     const name = [
         "Enrique Villamuelas",
         "Irma Arribas",
@@ -19,7 +17,7 @@ $(document).ready(function () {
     ];
 
     const audio_url = [
-        "llamada.mp3",
+        "llamadaEnrique.mp3",
         "llamadaIrma.mp3",
         "llamadaAtxu.mp3"
     ];
@@ -33,6 +31,19 @@ $(document).ready(function () {
 
 
 
+
+
+    var call_count = 0;
+
+    const rndInt = Math.floor(Math.random() * name.length) + 1;
+
+    for (let i = 0; i < rndInt; i++) {
+        var delete_name = name.shift();
+        name.push(delete_name);
+    
+        var delete_audio_url = audio_url.shift();
+        audio_url.push(delete_audio_url);
+    } 
 
     var phone = function () {
 
