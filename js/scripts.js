@@ -146,6 +146,7 @@ $(document).ready(function () {
 
                 audio.load();
                 audio.play();
+                audio.muted = false;
                 ring.pause();
                 ring.currentTime = 0;
 
