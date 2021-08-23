@@ -10,201 +10,251 @@
 $(document).ready(function () {
 
 
-    var estado = 0;
+    var call_count = 0;
 
-    jQuery.fn.extend({
+    const name = [
+        "Enrique Villamuelas",
+        "Irma Arribas",
+        "Atxu Amann"
+    ];
 
-        phone: function () {
-            $("#webpage").fadeOut("fast");
-            $("#call_screen").fadeIn("fast")
-            $("#call_screen").addClass("d-flex align-items-center justify-content-center")
+    const audio_url = [
+        "llamada.mp3",
+        "llamadaIrma.mp3",
+        "llamadaAtxu.mp3"
+    ];
 
-            var audio = document.getElementById("call_audio");
-            var ring = document.getElementById("call_ring");
-
-            var playing = 0;
-
-            ring.play();
-            setTimeout(function () {
-                if (playing == 0) {
-
-                    $("#webpage").fadeIn("fast");
-                    $("#call_screen").fadeOut("fast");
-                    $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
+    const time_btw_calls = [
+        "10000",
+        "5000",
+        "15000"
+    ];
 
 
-                    $("#call_calling").css("height", "30px");
-                    $("#call_time").css("height", "0");
-
-                    $("#phone").prop('disabled', false);
-                    $("#mute").prop('disabled', true);
-                    $("#speaker").prop('disabled', true);
-
-                    paused = !paused;
-
-                    audio.pause();
-                    audio.currentTime = 0;
-                    ring.pause();
-                    ring.currentTime = 0;
-
-                }
-            }, 30000);
 
 
-            var count = 0;
-            var timer;
-            var paused = false;
-            var counter = function () {
+
+    var phone = function () {
+
+        $("#webpage").fadeOut("fast");
+        $("#call_screen").fadeIn("fast")
+        $("#call_screen").addClass("d-flex align-items-center justify-content-center")
+
+        var audio = document.getElementById("call_audio");
+        var ring = document.getElementById("call_ring");
+
+        var playing = 0;
+
+        ring.play();
+        playing = 1;
+        
+        var contestador = setTimeout(function () {
+
+                $("#webpage").fadeIn("fast");
+                $("#call_screen").fadeOut("fast");
+                $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
+
+
+                $("#call_calling").css("height", "30px");
+                $("#call_time").css("height", "0");
+
+                $("#phone").prop('disabled', false);
+                $("#mute").prop('disabled', true);
+                $("#speaker").prop('disabled', true);
+
+
+                audio.pause();
+                audio.currentTime = 0;
+                ring.pause();
+                ring.currentTime = 0;
+
+                // BORRAR
+                console.log("Prueba de duplicados No contesta");
+
+                slideTimer(function () {
+                    phone();
+                    call_count++;
+                }, time_btw_calls[call_count]);
+
+        }, 30000);
+        
+
+        var count = 0;
+        var timer;
+        var counter = function () {
+            if (playing == 1) {
                 count++;
-                if (count > 120) { count = 1; }
-                console.log(count);
                 setTime();
                 timer = setTimeout(function () {
                     counter();
                 }, 1000);
-            };
-
-            var minutesLabel = document.getElementById("minutes");
-            var secondsLabel = document.getElementById("seconds");
-
-
-            function setTime() {
-                secondsLabel.innerHTML = pad(count % 60);
-                minutesLabel.innerHTML = pad(parseInt(count / 60));
             }
+        };
 
-            function pad(val) {
-                var valString = val + "";
-                if (valString.length < 2) {
-                    return "0" + valString;
-                } else {
-                    return valString;
-                }
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+
+
+        function setTime() {
+            secondsLabel.innerHTML = pad(count % 60);
+            minutesLabel.innerHTML = pad(parseInt(count / 60));
+        }
+
+        function pad(val) {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
             }
+        }
 
 
-            $('button').on('click', function () {
+
+        $('button').on('click', function () {
+
+
+            if ($(this).is('#phone')) {
+
+                $("#call_calling").animate({
+                    height: '0px'
+                }, 500);
+                $("#call_time").animate({
+                    height: '30px'
+                }, 500);
+
+                $("#phone").prop('disabled', true);
+                $("#mute").prop('disabled', false);
+                $("#speaker").prop('disabled', false);
+
+                clearTimeout(timer);
+                clearTimeout(contestador);
+                count = 0;
+                playing = 1;
+                counter();
+
+                audio.load();
+                audio.play();
+                ring.pause();
+                ring.currentTime = 0;
+
+
+            } else if ($(this).is('#phone_slash')) {
+
+                $("#webpage").fadeIn("fast");
+                $("#call_screen").fadeOut("fast");
+                $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
+
+
+                $("#call_calling").css("height", "30px");
+                $("#call_time").css("height", "0");
+
+                $("#phone").prop('disabled', false);
+                $("#mute").prop('disabled', true);
+                $("#speaker").prop('disabled', true);
+
+                clearTimeout(contestador);
+
+                audio.pause();
+                audio.currentTime = 0;
+                ring.pause();
+                ring.currentTime = 0;
+
+                playing = 0;
+
+
+                slideTimer(function () {
+                    phone();
+                    call_count++;
+                }, time_btw_calls[call_count]);
                 
 
-                if ($(this).is('#phone')) {
+            } else if ($(this).is('#mute')) {
 
-                    clearTimeout(timer);
+                audio.muted = true;
 
-                    $("#call_calling").animate({
-                        height: '0px'
-                    }, 500);
-                    $("#call_time").animate({
-                        height: '30px'
-                    }, 500);
+            } else if ($(this).is('#speaker')) {
 
-                    $("#phone").prop('disabled', true);
-                    $("#mute").prop('disabled', false);
-                    $("#speaker").prop('disabled', false);
+                audio.muted = false;
 
-                    count = 0;
-                    counter();
+            }
 
-                    
-                    audio.play();
-                    ring.pause();
-                    ring.currentTime = 0;
+        });
 
-                    playing = 1;
+        $('#call_audio').on('ended', function () {
+
+            $("#webpage").fadeIn("fast");
+            $("#call_screen").fadeOut("fast");
+            $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
 
 
+            $("#call_calling").css("height", "30px");
+            $("#call_time").css("height", "0");
 
-                } else if ($(this).is('#phone_slash')) {
+            $("#phone").prop('disabled', false);
+            $("#mute").prop('disabled', true);
+            $("#speaker").prop('disabled', true);
 
-                    $("#webpage").fadeIn("fast");
-                    $("#call_screen").fadeOut("fast");
-                    $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
+            clearTimeout(contestador);
 
+            audio.pause();
+            audio.currentTime = 0;
+            ring.pause();
+            ring.currentTime = 0;
 
-                    $("#call_calling").css("height", "30px");
-                    $("#call_time").css("height", "0");
-
-                    $("#phone").prop('disabled', false);
-                    $("#mute").prop('disabled', true);
-                    $("#speaker").prop('disabled', true);
-
-                    paused = !paused;
-
-                    audio.pause();
-                    audio.currentTime = 0;
-                    ring.pause();
-                    ring.currentTime = 0;
-
-                    playing = 0;
-
-                } else if ($(this).is('#mute')) {
-
-                    audio.muted = true;
-
-                } else if ($(this).is('#speaker')) {
-
-                    audio.muted = false;
-
-                }
+            playing = 0;
 
 
+            slideTimer(function () {
+                phone();
+                call_count++;
+            }, time_btw_calls[call_count]);
+      
+            
+        });
+
+    };
 
 
+    var slideTimer = (function () {
+        var timer = 0;
 
-            });
+        // Because the inner function is bound to the slideTimer variable,
+        // it will remain in score and will allow the timer variable to be manipulated.
 
-            $('#call_audio').on('ended', function() {
-                $("#webpage").fadeIn("fast");
-                    $("#call_screen").fadeOut("fast");
-                    $("#call_screen").removeClass("d-flex align-items-center justify-content-center");
+        return function (callback, ms) {
+            clearTimeout(timer);
+            $("button").unbind('click');
+            if (call_count < name.length) {
+                var call_name = document.getElementById("call_name");
 
+                call_name.innerHTML = name[call_count];
+                $("#call_src").attr("src","assets/audio/" + audio_url[call_count]);
 
-                    $("#call_calling").css("height", "30px");
-                    $("#call_time").css("height", "0");
-
-                    $("#phone").prop('disabled', false);
-                    $("#mute").prop('disabled', true);
-                    $("#speaker").prop('disabled', true);
-
-                    paused = !paused;
-
-                    audio.pause();
-                    audio.currentTime = 0;
-                    ring.pause();
-                    ring.currentTime = 0;
-
-                    playing = 0;
-            });
-
-        },
-
-    });
-
-
-
-
+                timer = setTimeout(callback, ms);
+            };
+        };
+    })();
 
     $("#button_enter").click(function () {
         $("#enter_screen").fadeOut("slow");
         $("#intro").removeClass("d-flex align-items-center justify-content-center")
         $("#intro").css("display", "none");
-        $("#webpage").fadeIn("slow");
         $("#video_screen").fadeIn("slow");
         $('#video').get(0).play();
         $('#video').on('ended', function () {
             $("#video_screen").fadeOut("slow");
             $("#webpage").fadeIn("slow");
 
-            setTimeout(function () {
-                $.fn.phone();
-            }, 2000);
-    
-            setTimeout(function () {
-                $.fn.phone();
-            }, 50000);
+
+            slideTimer(function () {
+                phone();
+                call_count++;
+            }, time_btw_calls[call_count]);
 
         });
 
-        
+
 
 
     });
