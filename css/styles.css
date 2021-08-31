@@ -59,7 +59,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
+  --bs-body-color: #ffffff;
   --bs-body-bg: #fff;
 }
 
@@ -83,8 +83,10 @@ html {
 
 body {
   margin: 0;
+  /*!
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
+  */
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
@@ -102,6 +104,11 @@ body {
   box-shadow: 0px 0px 20px rgb(255, 255, 255);
   width: 100%;
   min-height: 100%;
+}
+
+.imagen_img{
+  width: 100%;
+  height: auto;
 }
 
 #intro{
@@ -153,7 +160,12 @@ body {
 }
 
 #webpage{
-  display: auto;
+  display: none;
+  background: rgb(191,108,191);
+  background: -moz-linear-gradient(299deg, rgba(191,108,191,1) 42%, rgba(34,193,195,1) 72%, rgba(253,187,45,1) 100%);
+  background: -webkit-linear-gradient(299deg, rgba(191,108,191,1) 42%, rgba(34,193,195,1) 72%, rgba(253,187,45,1) 100%);
+  background: linear-gradient(299deg, rgba(191,108,191,1) 42%, rgba(34,193,195,1) 72%, rgba(253,187,45,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bf6cbf",endColorstr="#fdbb2d",GradientType=1); 
 }
 
 #call_screen{
@@ -177,6 +189,10 @@ body {
   overflow: hidden;
 }
 
+#call_name{
+  font-weight: bold;
+}
+
 #call_menu{
   padding-top: 100px;
   position: relative;
@@ -189,6 +205,7 @@ body {
 
 .menu_button{
   color: #1b7081;
+  font-size: 1rem;
 }
 
 #call_audio, #call_ring{
@@ -244,7 +261,8 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: calc(1.325rem + 0.9vw);
+  font-size: calc(4rem + 0.9vw);
+  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;
 }
 @media (min-width: 2000px) {
   h2, .h2 {
@@ -253,7 +271,9 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-size: calc(1.3rem + 0.6vw);
+  font-size: calc(2rem + 0.6vw);
+  color: white;
+  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;
 }
 @media (min-width: 2000px) {
   h3, .h3 {
@@ -281,6 +301,8 @@ h6, .h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.5em;
 }
 
 abbr[title],
@@ -361,11 +383,11 @@ sup {
 }
 
 a {
-  color: #0d6efd;
+  color: #ffffff;
   text-decoration: underline;
 }
 a:hover {
-  color: #0a58ca;
+  color: #ffffff;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -3603,7 +3625,9 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 1rem 1.25rem;
-  font-size: 1.25rem;
+  
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1em;
   border-radius: 0.3rem;
 }
 

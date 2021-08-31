@@ -248,27 +248,27 @@ $(document).ready(function () {
         };
     })();
 
-    //$("#button_enter").click(function () {
-        //$("#enter_screen").fadeOut("slow");
-        //$("#intro").removeClass("d-flex align-items-center justify-content-center")
-        //$("#intro").css("display", "none");
-        //$("#video_screen").fadeIn("slow");
-        //$('#video').get(0).play();
-        //$('#video').on('ended', function () {
-            //$("#video_screen").fadeOut("slow");
-            //$("#webpage").fadeIn("slow");
+    $("#button_enter").click(function () {
+        $("#enter_screen").fadeOut("slow");
+        $("#intro").removeClass("d-flex align-items-center justify-content-center")
+        $("#intro").css("display", "none");
+        $("#video_screen").fadeIn("slow");
+        $('#video').get(0).play();
+        $('#video').on('ended', function () {
+            $("#video_screen").fadeOut("slow");
+            $("#webpage").fadeIn("slow");
 
 
-            //slideTimer(function () {
-                //phone();
-                //call_count++;
-            //}, time_btw_calls[call_count]);
+            slideTimer(function () {
+                phone();
+                call_count++;
+            }, time_btw_calls[call_count]);
 
-        //});
-
-
+        });
 
 
-    //});
+
+
+    });
 
 });
