@@ -11,13 +11,13 @@ $(document).ready(function () {
 
 
     const name = [
-        "Enrique Villamuelas",
+        "Francesc Ferrer i Guardi",
         "Irma Arribas",
         "Atxu Amann"
     ];
 
     const audio_url = [
-        "llamadaEnrique.mp3",
+        "audio2.mp3",
         "llamadaIrma.mp3",
         "llamadaAtxu.mp3"
     ];
