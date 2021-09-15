@@ -12,14 +12,14 @@ $(document).ready(function () {
 
     const name = [
         "Francesc Ferrer i Guardi",
-        "Irma Arribas",
-        "Atxu Amann"
+        "La PEQUE",
+        "EE Heroine"
     ];
 
     const audio_url = [
         "audio2.mp3",
-        "llamadaIrma.mp3",
-        "llamadaAtxu.mp3"
+        "audio1.mp3",
+        "audio3.mp3"
     ];
 
     const time_btw_calls = [
