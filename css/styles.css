@@ -123,6 +123,10 @@ body {
   height: 100%;
 }
 
+.japan{
+  font-family: 'Sawarabi Gothic', sans-serif;
+}
+
 
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
@@ -529,6 +533,7 @@ h3, .h3 {
 
 h4, .h4 {
   font-size: calc(1.275rem + 0.3vw);
+  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;
 }
 @media (min-width: 2000px) {
   h4, .h4 {
