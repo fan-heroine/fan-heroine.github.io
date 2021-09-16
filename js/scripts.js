@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 
     const name = [
-        "Francisco Ferrer Guardia",
+        "Francesc Ferrer i Gu&agrave;rdia",
         "La PEQUE",
         "EE Heroine"
     ];
