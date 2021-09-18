@@ -23,9 +23,9 @@ $(document).ready(function () {
     ];
 
     const time_btw_calls = [
-        "10000",
         "5000",
-        "15000"
+        "10000",
+        "5000"
     ];
 
 
